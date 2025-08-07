@@ -1,0 +1,13 @@
+# Backend Requirements
+
+- Node.js >=16.0.0
+- Express (if used)
+
+## Install dependencies
+```
+npm install
+```
+
+## Main dependencies (from package.json)
+- express (if used)
+- other dependencies as listed in server/package.json
