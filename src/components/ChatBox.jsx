@@ -187,10 +187,22 @@ const quickPrompts = [
     setShowTutorial(false);
     localStorage.setItem('tutorialSeen', 'true');
 
+    // Prepare the full conversation context (including the new user message)
+    const conversation = [...messages, userMessage]
+      .map(msg => `${msg.sender === 'user' ? 'User' : 'AI'}: ${msg.text}`)
+      .join('\n');
+
     try {
       const response = await axios.post(`${API_URL}/generate-idea`, {
-        prompt: promptToSend
+        prompt: conversation
       });
+
+
+
+    // try {
+    //   const response = await axios.post(`${API_URL}/generate-idea`, {
+    //     prompt: promptToSend
+    //   });
 
       const aiMessage = {
         id: Date.now() + 1,
@@ -455,7 +467,7 @@ const quickPrompts = [
                   className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
                 >
                   <div
-                    className={`max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl px-4 py-3 rounded-xl ${
+                    className={`max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl px-4 py-3 rounded-xl ${
                       message.sender === 'user'
                         ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white ml-8'
                         : 'bg-white text-gray-800 border border-gray-200 mr-8'
